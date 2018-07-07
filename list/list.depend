@@ -1,8 +1,0 @@
-# depslib dependency file v1.0
-1528273137 source:c:\users\hasee\desktop\c++\list\main.c
-	<stdio.h>
-	<stdlib.h>
-	"NODE.h"
-
-1528269177 c:\users\hasee\desktop\c++\list\node.h
-
