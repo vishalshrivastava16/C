@@ -5,7 +5,7 @@
 clock_t start,stop;
 double duration;
 #define MAXN 100
-#define MAXK 1e6 //±»²âº¯Êý×î´óµ÷ÓÃ´ÎÊý
+#define MAXK 1e6 //è¢«æµ‹å‡½æ•°æœ€å¤§è°ƒç”¨æ¬¡æ•°
 double f1(int n, double a[], double x);
 double f2(int n, double a[], double x);
 
@@ -19,19 +19,21 @@ int main(){
         f1(MAXN-1,a,1.1);
     stop = clock();
     duration = ((double)(stop-start))/CLK_TCK;
-    printf("Ñ­»·ÊµÏÖ£º%lf\n",duration);
+    printf("%lf\n",duration);
 
     start = clock();
     for(i=0;i<MAXK;i++)
         f2(MAXN-1,a,1.1);
     stop = clock();
     duration = ((double)(stop-start))/CLK_TCK;
-    printf("µÝ¹éÊµÏÖ£º%lf\n",duration);
+    printf("%lf\n",duration);
+
+    getchar();
     return 0;
 }
 
 double f1(int n, double a[], double x){
-    //Ñ­»·ÊµÏÖ
+    //å¾ªçŽ¯å®žçŽ°
     int i;
     double p = a[0];
     for(i=0;i<=n;i++){
@@ -41,7 +43,7 @@ double f1(int n, double a[], double x){
 }
 
 double f2(int n, double a[], double x){
-    //µÝ¹éÊµÏÖ
+    //é€’å½’å®žçŽ°
     int i;
     double p=a[n];
     for (i=n;i>0;i--){
