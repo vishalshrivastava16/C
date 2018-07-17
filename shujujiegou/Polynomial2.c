@@ -2,106 +2,116 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/* 多项式由次数由低到高 */
+/* 指数递降*/
 typedef struct Node{
     int Coeff;  //系数
-    int Exp;    //次数
+    int Exp;    //指数
     struct Node *Next;
 } Polynomial;
 
-Polynomial *ZeroPolynomial( Polynomial *Poly);
-void PrintPolynomial( Polynomial *Poly);
-Polynomial *InsertPolynomial(Polynomial *Poly, int coeff, int Exp);
-Polynomial *AddPolynomial( Polynomial *Poly1, Polynomial *Poly2, Polynomial *SumPoly);
+Polynomial *AddPoly(Polynomial *p1, Polynomial *p2);
+void Attach(int coeff, int exp, Polynomial **rear );
+void PrintPoly(Polynomial *Poly);
+void InsertPoly(int coeff, int exp, Polynomial *Poly);
+Polynomial *CreatPoly();
 
 
-int main()
+int main(int argc, char const *argv[])
 {
-    Polynomial *poly1 = NULL;
-    poly1 = ZeroPolynomial(poly1);
+    /* code */
+    Polynomial *Poly1, *Poly2;
+    Poly1 = CreatPoly();
+    Poly2 = CreatPoly();
 
-    PrintPolynomial(poly1);
+    InsertPoly(2, 4, Poly1);
+    InsertPoly(3,5,Poly2);
+    InsertPoly(4,3,Poly2);
 
-    poly1 = InsertPolynomial(poly1, 3, 5);
-    Polynomial *poly2 = NULL;
-    poly2 = ZeroPolynomial(poly2);
-    poly2 = InsertPolynomial(poly2, 2, 6);
     Polynomial *SumPoly;
-    PrintPolynomial(poly1);
-    PrintPolynomial(poly2);
-    SumPoly = AddPolynomial(poly1,poly2, SumPoly);
-    PrintPolynomial(SumPoly);
-
+    SumPoly = AddPoly(Poly1, Poly2);
+    PrintPoly(SumPoly);
+    
 
     getchar();
     return 0;
 }
 
-/* 多项式初始化 */
-Polynomial *ZeroPolynomial( Polynomial *Poly)
+Polynomial *CreatPoly()
 {
     Polynomial *p = (Polynomial*)malloc(sizeof(Polynomial));
-    
-    p->Next = NULL;
+    p->Next =NULL;
     p->Coeff = 0;
     p->Exp = 0;
     return p;
 }
 
-/* 打印多项式 */
-void PrintPolynomial( Polynomial *Poly)
+void InsertPoly(int coeff, int exp, Polynomial *Poly)
+{
+    if(Poly->Exp == 0){    //空多项式
+        Poly->Coeff = coeff;
+        Poly->Exp = exp;
+        return;
+    }
+    Polynomial *p = (Polynomial*)malloc(sizeof(Polynomial));
+    Polynomial *t = Poly;
+    p->Coeff = coeff;
+    p->Exp = exp;
+    p->Next = NULL;
+    while(t->Next)
+        t = t->Next;
+    t->Next = p;
+
+}
+
+Polynomial *AddPoly(Polynomial *p1, Polynomial *p2)
+{
+    Polynomial *front, *rear, *temp;//头节点、尾节点
+    rear = (Polynomial*)malloc(sizeof(Polynomial));
+    front = rear;
+    while(p1&&p2)//p1 p2都不为空
+    {
+        if(p1->Exp > p2->Exp){
+            Attach(p1->Coeff, p1->Exp, &rear);
+            p1 = p1->Next;
+        }else if(p1->Exp < p2->Exp){
+            Attach(p2->Coeff, p2->Exp, &rear);
+            p2 = p2->Next;
+        }else{
+            if(p1->Coeff + p2->Coeff == 0){
+                p1 = p1->Next;
+                p2 = p2->Next;
+                continue;
+            }
+            Attach(p1->Coeff + p2->Coeff, p1->Exp, &rear);
+            p1 = p1->Next;
+            p2 = p2->Next;            
+        }
+    }
+    for(;p1; p1 = p1->Next) Attach(p1->Coeff, p1->Exp, &rear);
+    for(;p2;p2 = p2->Next)  Attach(p2->Coeff, p2->Exp, &rear);
+    rear->Next = NULL;
+    temp = front;
+    front = front->Next;//不包含头节点的链表
+    free(temp);
+    return front;
+}
+
+void Attach(int coeff, int exp, Polynomial **rear )
+{
+    Polynomial *temp = (Polynomial*)malloc(sizeof(Polynomial));
+    temp->Exp = exp;
+    temp->Coeff = coeff;
+    temp->Next = NULL;
+    (*rear)->Next = temp;
+    *rear = temp;
+}
+
+void PrintPoly(Polynomial *Poly)
 {
     Polynomial *p = Poly;
-    printf("Polynomial = ");
     while(p){
-        printf("%d*X^%d + ",p->Coeff,p->Exp);
-        p=p->Next;
+        printf("%dX^%d + ", p->Coeff, p->Exp);
+        p = p->Next;
     }
     printf("\n");
-}
-
-/* 插入项数 */
-Polynomial *InsertPolynomial(Polynomial *Poly, int coeff, int Exp)
-{
-    Polynomial *p = (Polynomial*)malloc(sizeof(Polynomial)), *s;
-    /* 在末尾插入 */
-    s = Poly;
-    while(s->Next)
-        s = s->Next;
-    s->Next = p;
-    p->Coeff = coeff;
-    p->Exp = Exp;
-    p->Next = NULL;
-    return Poly;
-}
-/* 多项式相加 */
-Polynomial *AddPolynomial( Polynomial *Poly1, Polynomial *Poly2, Polynomial *SumPoly)
-{
-    Polynomial *s, *p, *z;
-    s=Poly1;
-    p=Poly2;
-    SumPoly = NULL;
-    z=SumPoly;
-    while(s->Next){
-        z = (Polynomial*)malloc(sizeof(Polynomial));        
-        if(s->Exp == p->Exp){
-            z->Exp = s->Exp;
-            z->Coeff = ( s->Coeff + p->Coeff);
-            s = s->Next;
-            p = p->Next;
-        }else if(s->Exp>p->Exp){
-            z->Exp = p->Exp;
-            z->Coeff = p->Coeff;
-            p = p->Next;
-        }else {
-            z->Exp = s->Exp;
-            z->Coeff = s->Coeff;
-            s = s->Next;
-        }
-        z = z->Next;
-    }
-
-    z= p;
-
-    return SumPoly;
 }
