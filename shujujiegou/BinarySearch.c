@@ -9,7 +9,7 @@ int main()
     int a[]={9,8,7,6,5,4,3,2,1};
     int X =5;
     int N = 9;
-    printf("%d",BinarySearch(a,X,N));y
+    printf("%d",BinarySearch(a,X,N));
 
     return 0;
 }

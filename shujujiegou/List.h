@@ -13,7 +13,7 @@ List *Insert(int X, int i, List *PtrL);
 List *Delete(int i, List *PtrL);
 void Print(List *PtrL);
 
-
+List *Reverse(List *L);
 
 
 

@@ -119,3 +119,17 @@ List *Delete(int i, List *PtrL)
         return PtrL;
     }
 }
+
+/* 链表逆转 */
+List *Reverse(List *L)
+{
+    List *P, *t;
+    P = t = NULL;
+    while(L){
+        t = L->Next;
+        L->Next = P;
+        P = L;
+        L = t;
+    }
+    return P;
+}

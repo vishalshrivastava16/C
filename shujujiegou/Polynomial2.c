@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Polynomial2.h"
+<<<<<<< HEAD
 
 /* 指数递降
 typedef struct Node{
@@ -10,6 +11,15 @@ typedef struct Node{
     struct Node *Next;
 } Polynomial;
  */
+=======
+/* 指数递降*/
+/* typedef struct Node{
+    int Coeff;  //系数
+    int Exp;    //指数
+    struct Node *Next;
+} Polynomial; */
+
+>>>>>>> 923acce7af655d035c6128325b80fe0abe398b07
 
 int main(int argc, char const *argv[])
 {
@@ -21,7 +31,10 @@ int main(int argc, char const *argv[])
     InsertPoly(2, 4, Poly1);
     InsertPoly(3,5,Poly2);
     InsertPoly(4,3,Poly2);
-
+    
+    PrintPoly(Poly1);
+    PrintPoly(Poly2);
+     
     Polynomial *SumPoly;
     SumPoly = AddPoly(Poly1, Poly2);
     PrintPoly(SumPoly);

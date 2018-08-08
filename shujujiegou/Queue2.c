@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include "Queue2.h"
 
-/* typedef struct Node{
+/* 
+typedef struct Node{
     int Data;
     struct Node *Next;
 }QNode;
@@ -10,7 +11,8 @@
 typedef struct{
     QNode *rear;
     QNode *front;
-}LinkQueue; */
+}LinkQueue;
+*/
 
 int main()
 {
