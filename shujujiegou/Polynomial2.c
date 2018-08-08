@@ -1,20 +1,15 @@
 /* 链表实现多项式 */
 #include <stdio.h>
 #include <stdlib.h>
+#include "Polynomial2.h"
 
-/* 指数递降*/
+/* 指数递降
 typedef struct Node{
     int Coeff;  //系数
     int Exp;    //指数
     struct Node *Next;
 } Polynomial;
-
-Polynomial *AddPoly(Polynomial *p1, Polynomial *p2);
-void Attach(int coeff, int exp, Polynomial **rear );
-void PrintPoly(Polynomial *Poly);
-void InsertPoly(int coeff, int exp, Polynomial *Poly);
-Polynomial *CreatPoly();
-
+ */
 
 int main(int argc, char const *argv[])
 {
