@@ -3,3 +3,6 @@
 *.exe
 *.json
 *.json
+*.o
+*.exe
+*.json
