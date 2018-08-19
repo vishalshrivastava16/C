@@ -98,9 +98,21 @@ LGraph BuildGraph()
     return Graph;
 }
 
-int main()
+/* DFS */
+void Visit( Vertex V )
 {
+    printf("正在访问顶点%d\n", V);
+}
 
+int Visited[];
+/* Visited[]为全局变量，已初始化为false */
+void DFS( LGraph Graph, Vertex V, void(*Visit)(Vertex))
+{   /* 以V点出发对邻接表存储的图进行DFS搜索 */
+    PtrToAdjVNode W;
+    Visit(V);
+    Visited[V] = 1;
 
-    return 0;
+    for(W=Graph->G[V].FirstEdge; W; W = W->Next)/* 对V的每个邻接点W->AdjV */
+        if(!Visited[W->Adjv])/* 若W->AdjV未被访问 */
+            DFS(Graph, W->Adjv, Visit);
 }
