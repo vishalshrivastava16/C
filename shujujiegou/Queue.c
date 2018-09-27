@@ -25,7 +25,6 @@ Queue *CreateQ()
     Q->rear = -1;
     Q->front = -1;
     return Q;
-    
 }
 
 void AddQ(Queue *Q, int X)
