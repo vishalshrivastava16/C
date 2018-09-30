@@ -4,7 +4,8 @@
         "stdlib.h": "c",
         "stdio.h": "c",
         "iostream": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "limits": "cpp"
     },
     "files.encoding": "gb2312"
 }
